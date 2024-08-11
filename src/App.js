@@ -1,24 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import BookList from './components/BookList';
+import AddBook from './components/AddBook';
+import UpdateBook from './components/UpdateBook';
+import DeleteBook from './components/DeleteBook';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+`;
+
+const Nav = styled.nav`
+  margin-bottom: 20px;
+
+  a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #61dafb;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Container>
+        <h1>Book CRUD Application</h1>
+        <Nav>
+          <Link to="/">Home</Link>
+          <Link to="/add">Add Book</Link>
+          <Link to="/update">Update Book</Link>
+          <Link to="/delete">Delete Book</Link>
+        </Nav>
+        <Routes>
+          <Route path="/" element={<BookList />} />
+          <Route path="/add" element={<AddBook />} />
+          <Route path="/update" element={<UpdateBook />} />
+          <Route path="/delete" element={<DeleteBook />} />
+        </Routes>
+      </Container>
+    </Router>
   );
 }
 

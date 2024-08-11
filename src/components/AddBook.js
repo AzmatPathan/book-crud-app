@@ -1,0 +1,77 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import { API_BASE_URL } from '../constants';
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 300px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+`;
+
+const Button = styled.button`
+  padding: 10px 20px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+
+  &:hover {
+    background-color: #21a1f1;
+  }
+`;
+
+const AddBook = () => {
+  const [title, setTitle] = useState('');
+  const [authors, setAuthors] = useState('');
+  const [publisher, setPublisher] = useState('');
+  const [year, setYear] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newBook = {
+      Title: title,
+      Authors: authors,
+      Publisher: publisher,
+      Year: year,
+    };
+
+    try {
+      await axios.post(`${API_BASE_URL}`, newBook);
+      alert('Book added successfully!');
+      setTitle('');
+      setAuthors('');
+      setPublisher('');
+      setYear('');
+    } catch (error) {
+      console.error('Error adding book:', error);
+      alert('Failed to add book.');
+    }
+  };
+
+  return (
+    <div>
+      <h2>Add a New Book</h2>
+      <Form onSubmit={handleSubmit}>
+        <Input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" required />
+        <Input type="text" value={authors} onChange={(e) => setAuthors(e.target.value)} placeholder="Authors" required />
+        <Input type="text" value={publisher} onChange={(e) => setPublisher(e.target.value)} placeholder="Publisher" required />
+        <Input type="number" value={year} onChange={(e) => setYear(e.target.value)} placeholder="Year" required />
+        <Button type="submit">Add Book</Button>
+      </Form>
+    </div>
+  );
+};
+
+export default AddBook;
