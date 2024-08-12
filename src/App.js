@@ -5,6 +5,12 @@ import AddBook from './components/AddBook';
 import UpdateBook from './components/UpdateBook';
 import DeleteBook from './components/DeleteBook';
 import styled from 'styled-components';
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+Amplify.configure(awsconfig);
 
 const Container = styled.div`
   max-width: 800px;
@@ -50,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
