@@ -10,6 +10,8 @@ import awsconfig from './aws-exports';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
+console.log('AWS Amplify Configuration:', awsconfig);
+
 Amplify.configure(awsconfig);
 
 const Container = styled.div`
